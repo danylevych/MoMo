@@ -1,0 +1,7 @@
+# Ignore all files
+*
+
+# Include tests and source code
+!.gitignore
+!momo/tests/
+!momo/
