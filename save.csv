@@ -1,0 +1,6 @@
+,,"('MySQL', 'Copper')","('MySQL', 'Aluminum')","('MS SQL', 'Copper')","('MS SQL', 'Aluminum')","('Oracle', 'Copper')","('Oracle', 'Aluminum')"
+DBMS,Security,True,True,True,True,True,True
+DBMS,Performance,True,True,True,True,True,True
+DBMS,Speed,True,True,True,True,True,True
+Connector,Flexibility,True,True,True,True,True,True
+Connector,Cost,True,True,True,True,True,True
