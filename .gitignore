@@ -1,7 +1,5 @@
-# Ignore all files
-*
+__pycache__/
 
-# Include tests and source code
-!.gitignore
-!momo/tests/
-!momo/
+*.pyc
+*.pyo
+*.pyd
