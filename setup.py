@@ -1,14 +1,15 @@
-from setuptools import setup
+from setuptools import setup, find_packages
 
 setup(
-    name='momo',
-    version='1.0.0',
+    name='momo-morphological-modeling',
+    version='1.1.0',
     description='MoMo is a module that does Morphological Modeling',
-    long_description='MoMo is an open source module that does Morphological Modeling',
+    long_description=open('README.md').read(),
+    long_description_content_type='text/markdown',
     author='Oleh Danylevych',
     author_email='danylevych123@email.com',
     url='https://github.com/danylevych/MoMo',
-    packages=['momo'],
+    packages=find_packages(),
     classifiers=[
         'Development Status :: 5 - Production/Stable',
         'Intended Audience :: Developers',

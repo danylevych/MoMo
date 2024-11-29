@@ -57,15 +57,6 @@ class MoMoModel:
         """
         return self.prototype
 
-    def get_system_models(self):
-        """
-        Returns the system models.
-
-        Returns:
-            MultiSystemModel: The system models.
-        """
-        return self.system_models
-
     def set_prototype(self, prototype):
         """
         Sets the prototype object.
@@ -74,6 +65,26 @@ class MoMoModel:
             prototype (Prototype): The prototype object.
         """
         self._init_prototype(prototype)
+
+    @property
+    def prototype_(self):
+        """
+        Prototype: The prototype object.
+        """
+        return self.get_prototype()
+
+    @prototype_.setter
+    def prototype_(self, prototype):
+        self.set_prototype(prototype)
+
+    def get_system_models(self):
+        """
+        Returns the system models.
+
+        Returns:
+            MultiSystemModel: The system models.
+        """
+        return self.system_models
 
     def set_system_models(self, system_models):
         """
@@ -84,6 +95,18 @@ class MoMoModel:
         """
         self.system_models = MultiSystemModel(system_models)
         self.prototype = self.system_models.get_prototype()
+
+    @property
+    def system_models_(self):
+        """
+        MultiSystemModel: The system models.
+        """
+        return self.get_system_models()
+
+    @system_models_.setter
+    def system_models_(self, system_models):
+        self.set_system_models(system_models)
+
 
     def __calculate_similarity_measures(self, prototype, compared_system):
         """
@@ -120,3 +143,15 @@ class MoMoModel:
 
         return similarity_measures
 
+
+    def __str__(self):
+        """
+        Returns a string representation of the MoMoModel object.
+
+        Returns:
+            str: A string representation of the MoMoModel object.
+        """
+        output = f"Prototype:\n{self.prototype}\n\n"
+        output += f"System Models:\n{self.system_models}"
+
+        return output

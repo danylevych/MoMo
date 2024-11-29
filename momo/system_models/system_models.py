@@ -109,6 +109,7 @@ class SystemModel:
             raise ValueError(f"The {name} parameter must have a length of {expected_length}.")
 
 
+
     def add_feature(self, feature_name: str, alternatives: list | dict):
         """
         Adds a feature to the system model.
@@ -169,6 +170,7 @@ class SystemModel:
         self.data = self.data.drop(columns=alternative_name)
 
 
+
     def get_features(self):
         """
         Returns a tuple of the features in the system model.
@@ -177,6 +179,16 @@ class SystemModel:
             tuple: The features in the system model.
         """
         return tuple(self.data.index)
+
+    @property
+    def features(self):
+        """
+        Returns the features property of the system model's data.
+
+        Returns:
+            pandas.DataFrame.index: The features property of the system model's data.
+        """
+        return self.get_features()
 
 
     def get_alternatives(self):
@@ -188,6 +200,15 @@ class SystemModel:
         """
         return tuple(self.data.columns)
 
+    @property
+    def alternatives(self):
+        """
+        Returns the alternatives property of the system model's data.
+
+        Returns:
+            pandas.DataFrame.columns: The alternatives property of the system model's data.
+        """
+        return self.get_alternatives()
 
     @property
     def loc(self):
@@ -221,7 +242,7 @@ class SystemModel:
             key: The key to set the value for.
             value: The value to set.
         """
-        self.add_alternative(key, value)
+        self.data[key] = value
 
 
     def __str__(self):
@@ -232,6 +253,7 @@ class SystemModel:
             str: A string representation of the system model.
         """
         return f'"{self.name}"\n{self.data}'
+
 
 
 class MultiSystemModel:
@@ -479,3 +501,12 @@ class MultiSystemModel:
         return prototype
     #
     # =====================================================================
+
+    def __str__(self):
+        """
+        Returns a string representation of the multi-system model.
+
+        Returns:
+            str: A string representation of the multi-system model.
+        """
+        return self.get_all_combinations().__str__()
