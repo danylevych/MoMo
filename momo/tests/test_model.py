@@ -22,7 +22,7 @@ class TestMoMoModel(unittest.TestCase):
 
 
     def test_init(self):
-        self.assertEqual(self.model.u, 0)
+        self.assertEqual(self.model._u, 0)
         self.assertDictEqual(self.model.system_models.systems, self.multy_system.systems)
         self.assertTrue(self.model.prototype.equals(self.multy_system.get_prototype()))
 

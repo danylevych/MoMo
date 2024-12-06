@@ -479,7 +479,3 @@ dtype: int64
 
 
 ---
-
-## Author
-
-- [@danylevych](https://github.com/danylevych) - Idea & Initial work

@@ -23,7 +23,7 @@ class MoMoModel:
             system_models (MultiSystemModel | list | tuple | set): The system models used in the MoMo model.
             prototype (Prototype | None, optional): The prototype object. Defaults to None.
         """
-        self.u = 0
+        self._u = 0
         self.system_models = MultiSystemModel(system_models)
         self._init_prototype(prototype)
 
@@ -107,6 +107,26 @@ class MoMoModel:
     def system_models_(self, system_models):
         self.set_system_models(system_models)
 
+    @property
+    def u(self):
+        return self._u
+
+    @u.setter
+    def u(self, value: str|int|float):
+        if isinstance(value, str):
+            value = value.lower()
+            if value == "sorensen_dice":
+                self._u = 0
+            elif value == "dice":
+                self._u = 1
+            else:
+                raise ValueError("The value must be 'jaccard' or 'dice'.")
+
+        elif isinstance(value, (int, float)):
+            if 0 <= value <= 1:
+                self._u = value
+            else:
+                raise ValueError("The value must be between 0 and 1.")
 
     def __calculate_similarity_measures(self, prototype, compared_system):
         """
@@ -119,10 +139,10 @@ class MoMoModel:
         Returns:
             float: The similarity measure.
         """
-        intersection_num = (prototype == compared_system).sum()
+        intersection_num = (prototype & compared_system).sum()
         card_prototype = prototype.sum()
         card_compared_system = compared_system.sum()
-        u = self.u
+        u = self._u
 
         return 2 * intersection_num / ((1 + u) * (card_prototype + card_compared_system) - 2 * u * intersection_num)
 

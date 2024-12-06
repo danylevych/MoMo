@@ -1,5 +1,6 @@
 import set_pathes
 
+import pandas as pd
 import unittest
 from momo.system_models.system_models import SystemModel
 
@@ -19,6 +20,16 @@ class TestSystemModel(unittest.TestCase):
         with self.assertRaises(ValueError):
             SystemModel(name="test", data=[[1, 2, 3], [4, 5, 6], [7, 8, 9]], features=['f1', 'f2'], alternatives=["a1", "a2", "a3"])
 
+
+    def test_init_system_model_with_data_only(self):
+        system_model = SystemModel(name="test", data=[[1, 2, 3], [4, 5, 6], [7, 8, 9]])
+        self.assertEqual(system_model.data.index.to_list(), [0, 1, 2])
+        self.assertEqual(system_model.data.columns.to_list(), [0, 1, 2])
+
+    def test_init_system_model_with_data_frame(self):
+        system_model = SystemModel(name="test", data=pd.DataFrame([[1, 2, 3], [4, 5, 6], [7, 8, 9]], columns=['f1', 'f2', 'f3'], index=['a1', 'a2', 'a3']))
+        self.assertEqual(system_model.data.index.to_list(), ['a1', 'a2', 'a3'])
+        self.assertEqual(system_model.data.columns.to_list(), ['f1', 'f2', 'f3'])
 
     def test_init_system_model_incorect_alternatives(self):
         with self.assertRaises(ValueError):
