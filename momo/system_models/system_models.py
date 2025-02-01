@@ -433,6 +433,29 @@ class MultiSystemModel:
         return result_df
 
 
+    def generate_combinations(self):
+        """
+        Generates all possible combinations of alternatives for the system models in the multi-system model.
+
+        Yields:
+            tuple: A tuple of alternatives for each system model.
+        """
+        system_names = list(self.systems.keys())
+        system_data = [self.systems[name].data for name in system_names]
+        related_features = self.get_features_related_to_system()
+
+        for combination in product(*[data.columns for data in system_data]):
+            new_column = pd.Series(0, index=related_features)
+
+            for idx, (system_name, system_df) in enumerate(zip(system_names, system_data)):
+                for feature in system_df.index:
+                    if related_feature := self.__get_related_feature(feature, related_features):
+                        value = system_df.loc[feature, combination[idx]]
+                        new_column[related_feature] = value
+
+            yield tuple(combination), new_column
+
+
     def __get_related_feature(self, feature, related_features):
         """
         Returns the related feature for a given feature.

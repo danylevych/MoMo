@@ -154,11 +154,10 @@ class MoMoModel:
             dict: A dictionary containing the similarity measures for each combination.
         """
         similarity_measures = {}
-        combinations = self.system_models.get_all_combinations()
 
-        for combination in combinations.columns:
+        for combination, new_column in self.system_models.generate_combinations():
             similarity_measures[combination] = self.__calculate_similarity_measures(
-                self.prototype, combinations[combination]
+                self.prototype, new_column
             )
 
         return similarity_measures
